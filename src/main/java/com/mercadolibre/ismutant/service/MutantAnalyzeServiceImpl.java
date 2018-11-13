@@ -17,29 +17,6 @@ public class MutantAnalyzeServiceImpl implements MutantAnalyzeService {
 
     private static final Logger logger = LoggerFactory.getLogger(MutantAnalyzeServiceImpl.class);
 
-    @Override
-    public boolean isMutant(String[] dna) throws AnalyzeMutantException {
-
-        try {
-
-            logger.info("Stating analyze mutant...'");
-
-            List<String> dnaGenes = Arrays.asList(dna);
-            long totalOccurrences;
-            validateInputGenes(dnaGenes);
-            totalOccurrences = getOccurrences(dnaGenes);
-            totalOccurrences += getOccurrences(collectItemsInVertical(dnaGenes));
-            totalOccurrences += getOccurrences(collectItemsInDiagonal(dnaGenes));
-
-            logger.info("Occurrences founded, {}", totalOccurrences);
-
-            return totalOccurrences > Util.baseNumberSequenceGene;
-
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            throw new AnalyzeMutantException(e.getMessage());
-        }
-    }
 
     private List<String> collectItemsInDiagonal(List<String> dnaGenes) {
         logger.info("collect items in diagonal...'");
@@ -84,7 +61,7 @@ public class MutantAnalyzeServiceImpl implements MutantAnalyzeService {
     private void validateInputGenes(List<String> dna) {
         logger.info("Validating input...'");
         if (dna.isEmpty()) {
-            throw new IllegalArgumentException("Input are empty!");
+            throw new IllegalArgumentException("Human are empty!");
         }
 
         containInValidGenes(dna);
@@ -94,5 +71,29 @@ public class MutantAnalyzeServiceImpl implements MutantAnalyzeService {
         dna.stream().filter(gene -> Util.noDnaMatch.matcher(gene).find()).findFirst().ifPresent(s -> {
             throw new IllegalArgumentException("Invalid fields founded:" + s);
         });
+    }
+
+    @Override
+    public boolean isMutant(String[] dna) throws AnalyzeMutantException {
+
+        try {
+
+            logger.info("Stating analyze mutant...'");
+
+            List<String> dnaGenes = Arrays.asList(dna);
+            long totalOccurrences;
+            validateInputGenes(dnaGenes);
+            totalOccurrences = getOccurrences(dnaGenes);
+            totalOccurrences += getOccurrences(collectItemsInVertical(dnaGenes));
+            totalOccurrences += getOccurrences(collectItemsInDiagonal(dnaGenes));
+
+            logger.info("Occurrences founded, {}", totalOccurrences);
+
+            return totalOccurrences > Util.baseNumberSequenceGene;
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new AnalyzeMutantException(e.getMessage());
+        }
     }
 }
