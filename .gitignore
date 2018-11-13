@@ -35,6 +35,7 @@ release.properties
 target/
 bin/
 gen/
+/target
 
 # Gradle
 .gradle
