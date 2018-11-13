@@ -1,6 +1,6 @@
 package com.mercadolibre.ismutant.service;
 
-import com.mercadolibre.ismutant.service.exception.AnalyzeMutantException;
+import com.mercadolibre.ismutant.exception.AnalyzeMutantException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,13 +8,13 @@ public class MutantAnalyzeServiceImplTest {
 
     private MutantAnalyzeServiceImpl mutantAnalize = new MutantAnalyzeServiceImpl();
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldTrowIllegalArgumentExceptionWhenInvalidDNAisFinded() throws AnalyzeMutantException {
+    @Test(expected = AnalyzeMutantException.class)
+    public void shouldTrowAnalyzeMutantExceptionWhenInvalidDNAisFinded() throws AnalyzeMutantException {
         mutantAnalize.isMutant(new String[] { "AAAA", "CCCC", "TCAC10(*&@#", "123123" });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldTrowIllegalArgumentExceptionWhenInvalidDNAEmpty() throws AnalyzeMutantException {
+    @Test(expected = AnalyzeMutantException.class)
+    public void shouldTrowAnalyzeMutantExceptionWhenInvalidDNAEmpty() throws AnalyzeMutantException {
         mutantAnalize.isMutant(new String[] {});
     }
 
@@ -65,6 +65,24 @@ public class MutantAnalyzeServiceImplTest {
         "ATTAG",
         "ATTCA",
         "ATCCA" }));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenSequenceAIsInVerticalIsEqualsOneOccurrence() throws AnalyzeMutantException {
+        Assert.assertFalse(mutantAnalize.isMutant(new String[] {
+        "ATTAG",
+        "ATTAG",
+        "ACTCA",
+        "ACCCA" }));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenSequenceTIsFindInDiagonalIsGraterThanOneOccurrence() throws AnalyzeMutantException {
+        Assert.assertTrue(mutantAnalize.isMutant(new String[] {
+        "TATT",
+        "ATCT",
+        "ATTT",
+        "ACCT" }));
     }
 
 }
