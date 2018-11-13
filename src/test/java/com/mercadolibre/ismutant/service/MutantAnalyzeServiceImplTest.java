@@ -58,4 +58,13 @@ public class MutantAnalyzeServiceImplTest {
         Assert.assertTrue(mutantAnalize.isMutant(new String[] { "GGGG", "GGGG" }));
     }
 
+    @Test
+    public void shouldReturnTrueWhenSequenceAIsFindInVerticalGraterThanOneOccurrence() throws AnalyzeMutantException {
+        Assert.assertTrue(mutantAnalize.isMutant(new String[] {
+        "ATTAG",
+        "ATTAG",
+        "ATTCA",
+        "ATCCA" }));
+    }
+
 }
