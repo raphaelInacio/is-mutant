@@ -1,0 +1,14 @@
+version: '2'
+networks:
+  private:
+services:
+ db:
+  image: mongo:3.4
+  volumes:
+    - /data/db:/data/db
+  networks:
+    - private
+  ports:
+    - 27017:27017
+  env_file:
+   - 'enviroments.env'
