@@ -10,5 +10,11 @@ services:
     - private
   ports:
     - 27017:27017
-  env_file:
-   - 'enviroments.env'
+ is-mutant-service:
+  build: ./is-mutant
+  ports:
+  - 8080:8080
+  depends_on:
+   - "db"
+  networks:
+   - private
