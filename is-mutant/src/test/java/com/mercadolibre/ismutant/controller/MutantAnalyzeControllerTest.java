@@ -5,10 +5,8 @@ import com.mercadolibre.ismutant.service.MutantAnalyzeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +25,7 @@ public class MutantAnalyzeControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    @MockBean
+    @Autowired
     private MutantAnalyzeService analyzeService;
 
     @Before
@@ -37,17 +35,15 @@ public class MutantAnalyzeControllerTest {
 
     @Test
     public void shouldReturn200WhenSendValidDnaSequence() throws Exception {
-        Mockito.when(analyzeService.isMutant(Mockito.any())).thenReturn(Boolean.TRUE);
         mvc.perform(post("/mutant").content(DataBuilder.getValidHumanPayload())
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void shouldReturn403WhenSendValidDnaSequence() throws Exception {
-        Mockito.when(analyzeService.isMutant(Mockito.any())).thenReturn(Boolean.FALSE);
         mvc.perform(post("/mutant").content(DataBuilder.getIValidHumanPayload())
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isForbidden());
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
     }
 }

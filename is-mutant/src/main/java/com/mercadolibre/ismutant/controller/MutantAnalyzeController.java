@@ -1,7 +1,6 @@
 package com.mercadolibre.ismutant.controller;
 
 import com.mercadolibre.ismutant.dto.Human;
-import com.mercadolibre.ismutant.exception.AnalyzeMutantException;
 import com.mercadolibre.ismutant.service.MutantAnalyzeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ public class MutantAnalyzeController {
     private MutantAnalyzeService analyzeService;
 
     @PostMapping
-    public ResponseEntity<Void> isMutant(@RequestBody Human human) throws AnalyzeMutantException {
+    public ResponseEntity<Void> isMutant(@RequestBody Human human) {
         if (analyzeService.isMutant(human.getDna())) {
             return new ResponseEntity<>(HttpStatus.OK);
         }

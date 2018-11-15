@@ -14,7 +14,7 @@ public class DataBuilder {
 
     public static String getIValidHumanPayload() throws JsonProcessingException {
         Human invalidSequence = new Human();
-        invalidSequence.setDna(new String[]{"ATTAG", "ATTAG", "ATTCA", "ATCCA"});
+        invalidSequence.setDna(new String[]{"ATTAG", "ATTAG", "ATTCA", "ATCC1"});
         return new ObjectMapper().writeValueAsString(invalidSequence);
     }
 }

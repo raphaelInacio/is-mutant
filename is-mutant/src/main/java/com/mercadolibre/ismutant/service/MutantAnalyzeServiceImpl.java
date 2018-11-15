@@ -17,7 +17,6 @@ public class MutantAnalyzeServiceImpl implements MutantAnalyzeService {
 
     private static final Logger logger = LoggerFactory.getLogger(MutantAnalyzeServiceImpl.class);
 
-
     private List<String> collectItemsInDiagonal(List<String> dnaGenes) {
         logger.info("collect items in diagonal...'");
         return Arrays.asList(IntStream
