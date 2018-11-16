@@ -80,8 +80,8 @@ sudo docker-compose up
 
 3. Testar a API
 ```
- http://localhost:8080/stats
- http://localhost:8080/mutant
+ http://localhost/stats
+ http://localhost/mutant
 ```
 
 

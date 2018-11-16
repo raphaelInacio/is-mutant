@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import static com.mercadolibre.ismutant.util.Util.PERCENT;
@@ -48,7 +49,7 @@ public class StatsServiceImpl implements StatsService {
         }
 
         BigDecimal total = humans.add(mutants);
-        BigDecimal ratioMutant = mutants.divide(total).multiply(PERCENT).setScale(0, RoundingMode.DOWN);
+        BigDecimal ratioMutant = mutants.divide(total, MathContext.DECIMAL64).multiply(PERCENT).setScale(0, RoundingMode.DOWN);
 
         logger.info("Ratio calculated: {}", ratioMutant);
 
