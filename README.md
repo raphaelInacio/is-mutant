@@ -16,7 +16,7 @@ Após verificar que todos os dados fornecidos são válidos o algoritimo verific
 /(C{4}|A{4}|T{4}|G{4})/g
 ```
 
-## Desafio  2 - Expor API na Cloud
+## Desafios  2 e 3 
 
 ### Tecnologias escolhidas
 
@@ -40,11 +40,12 @@ A arquitetura do sistema utiliza os seguintes elementos
 - Criação de uma Instancia EC2  para rodar o sistema
 - Route 53 para routear um subdominio para a API
 
-Para consumir a aplicação basta executa uma requisição REST método POST no endpoint abaixo
+Para consumir a aplicação basta executa uma requisição REST método POST e GET nos endpoints abaixo
+
 ```
  http://api.raphaelinacio.com/mutant
+ http://api.raphaelinacio.com/stats
 ```
-
 
 ## Executando a aplicação localmente
 
@@ -62,32 +63,25 @@ Após ter instalado com sucesso as dependências acima basta basta seguir os pas
  1. Clonar o repositório do projeto
 
 ```
-git clone https://github.com/raphaelInacio/is-mutant.git
+sudo git clone https://github.com/raphaelInacio/is-mutant.git
 ```
 
  2. Criar um artefato maven
 
 ```
-mvn clean package
+sudo mvn clean package
 ```
 
- 3. Subir o ambiente da aplicação pelo docker-compose
+ 3. Subir o ambiente da aplicação através do docker-compose
 
 ```
-docker-compose up 
+sudo docker-compose up 
 ```
 
 3. Testar a API
 ```
-curl -X POST \
-  http://localhost/mutant \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -H 'postman-token: f2d5f631-ddd1-283f-927c-769a9cbc0fd8' \
-  -d '{"dna" : ["ATTAG",
-        "ATTAG",
-        "ATTCA",
-        "ATCCA" ]}'
+ http://localhost:8080/stats
+ http://localhost:8080/mutant
 ```
 
 
