@@ -18,7 +18,11 @@ Após verificar que todos os dados fornecidos são válidos o algoritimo verific
 
 ## Desafios  2 e 3 
 
-### Tecnologias escolhidas
+### Arquitetura do sistema
+
+![enter image description here](https://github.com/raphaelInacio/is-mutant/blob/master/arquitetura.jpg)
+
+A arquitetura do sistema utiliza os seguintes elementos 
 
 - Spring Boot 2
 - Java 8
@@ -26,32 +30,23 @@ Após verificar que todos os dados fornecidos são válidos o algoritimo verific
 - MongoDB
 - Docker
 - Docker Compose
+- AWS
 - EC2 (AWS)
 - Route 53 (AWS)
 
-### Arquitetura do sistema
-
-A arquitetura do sistema utiliza os seguintes elementos 
-
-- Aplicação Java Spring Boot  
-- Banco de dados MongoDB
-- Docker para empacotamento 
-- Docker Compose para orquestração, documentação e gerenciamento do ambiente da aplicação
-- Criação de uma Instancia EC2  para rodar o sistema
-- Route 53 para routear um subdominio para a API
-
-Para consumir a aplicação basta executa uma requisição REST método POST e GET nos endpoints abaixo
+A aplicação expõe dois endpoins conforme demonstrado abaixo
 
 ```
- http://api.raphaelinacio.com/mutant
- http://api.raphaelinacio.com/stats
+ POST: http://api.raphaelinacio.com/mutant
+ GET: http://api.raphaelinacio.com/stats
 ```
 
 ## Executando a aplicação localmente
 
 ###  Dependências
 
-Para executar essa aplicação é necessário instalar as seguintes ferramentas
+Para executar a aplicação localmente é necessário instalar as seguintes dependências
+
 - GIT
 - Java 1.8
 - Maven
@@ -79,9 +74,10 @@ sudo docker-compose up
 ```
 
 3. Testar a API
+
 ```
- http://localhost/stats
- http://localhost/mutant
+ GET: http://localhost/stats
+ POST: http://localhost/mutant
 ```
 
 
