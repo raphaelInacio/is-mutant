@@ -2,6 +2,7 @@ package com.mercadolibre.ismutant.controller;
 
 import com.mercadolibre.ismutant.DataBuilder;
 import com.mercadolibre.ismutant.service.MutantAnalyzeService;
+import com.mercadolibre.ismutant.service.StatsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,6 +29,9 @@ public class MutantAnalyzeControllerTest {
 
     @Autowired
     private MutantAnalyzeService analyzeService;
+
+    @Autowired
+    private StatsService statsService;
 
     @Before
     public void setUp() {
@@ -46,4 +51,11 @@ public class MutantAnalyzeControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    public void shouldReturnStats() throws Exception {
+        mvc.perform(get("/stats")).andExpect(status().isOk());
+    }
+
+
 }
